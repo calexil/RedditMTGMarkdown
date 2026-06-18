@@ -5,103 +5,98 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reddit MTG Deck Formatter</title>
     <style>
-      body {
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        background-color: #1a1a1a;
-        color: #ddd;
-        margin: 0;
-        padding: 20px;
-      }
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #1a1a1a;
+    color: #ddd;
+    margin: 0;
+    padding: 20px;
+  }
 
-      .container {
-        max-width: 1200px;
-        margin: 0 auto;
-      }
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
 
-      h1 {
-        text-align: center;
-        color: #4CAF50;
-      }
+  h1 {
+    text-align: center;
+    color: #4CAF50;
+  }
 
-      input,
-      textarea,
-      button {
-        padding: 12px;
-        margin: 5px;
-        border-radius: 6px;
-        border: 1px solid #444;
-      }
+  input,
+  textarea,
+  button {
+    padding: 12px;
+    margin: 5px;
+    border-radius: 6px;
+    border: 1px solid #444;
+  }
 
-      input[type="text"],
-      textarea {
-        background-color: #2a2a2a;
-        color: #ddd;
-        width: 100%;
-        box-sizing: border-box;
-      }
+  input[type="text"],
+  textarea {
+    background-color: #2a2a2a;
+    color: #ddd;
+    width: 100%;
+    box-sizing: border-box;
+  }
 
-      button {
-        background-color: #4CAF50;
-        color: white;
-        border: none;
-        cursor: pointer;
-        font-weight: bold;
-      }
+  /* Uniform Button Styling */
+  button, .donate-btn {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 14px;              /* Consistent size */
+    padding: 12px 20px;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+  }
 
-      button:hover {
-        background-color: #45a049;
-      }
+  button:hover,
+  .donate-btn:hover {
+    background-color: #45a049;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.4);
+  }
 
-      pre {
-        background-color: #2a2a2a;
-        padding: 20px;
-        border-radius: 8px;
-        overflow-x: auto;
-        white-space: pre-wrap;
-        font-family: monospace;
-        line-height: 1.5;
-      }
+  button:active,
+  .donate-btn:active {
+    transform: translateY(1px);
+  }
 
-      .output {
-        border: 1px solid #444;
-        padding: 25px;
-        background-color: #222;
-        border-radius: 10px;
-      }
+  /* Donate Button Specifics */
+  .donate-btn {
+    display: inline-block;
+    text-decoration: none;
+    margin: 10px 0;
+    box-shadow: 0 2px 8px rgba(76, 175, 80, 0.3);
+  }
 
-      .instructions {
-        background: #2a2a2a;
-        padding: 15px;
-        border-radius: 6px;
-        margin: 15px 0;
-      }
-      .donate-btn {
-  display: inline-block;
-  padding: 14px 32px;
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: #fff;
-  background: linear-gradient(135deg, #ff6b6b, #f93e3e);
-  border: none;
-  border-radius: 8px;
-  text-decoration: none;
-  cursor: pointer;
-  transition: all 0.25s ease;
-  box-shadow: 0 4px 15px rgba(249, 62, 62, 0.3);
-  margin: 10px 0;
-}
+  pre {
+    background-color: #2a2a2a;
+    padding: 20px;
+    border-radius: 8px;
+    overflow-x: auto;
+    white-space: pre-wrap;
+    font-family: monospace;
+    line-height: 1.5;
+  }
 
-.donate-btn:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 25px rgba(249, 62, 62, 0.4);
-  background: linear-gradient(135deg, #ff5252, #ff1f1f);
-  color: white;
-}
+  .output {
+    border: 1px solid #444;
+    padding: 25px;
+    background-color: #222;
+    border-radius: 10px;
+  }
 
-.donate-btn:active {
-  transform: translateY(1px);
-}
-    </style>
+  .instructions {
+    background: #2a2a2a;
+    padding: 15px;
+    border-radius: 6px;
+    margin: 15px 0;
+  }
+</style>
   </head>
   <body>
     <div class="container">
@@ -117,12 +112,11 @@
         <button onclick="copyToClipboard()" style="margin-top: 15px;">Copy All to Clipboard</button>
       </div>
       <div id="status" style="text-align: center; margin: 15px; color: #aaa;"></div>
-      <div style="text-align: center; margin: 30px 0 10px;">
+      <div style="text-align: center; margin: 35px 0 15px;">
   <a href="https://calexil.com/#donate" class="donate-btn">
     ❤️ Like this tool? Consider leaving a tip!
   </a>
 </div>
-
     </div>
     <script>
       const PROXY = 'deckproxy.php?url=';
