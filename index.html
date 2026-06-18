@@ -253,27 +253,44 @@
         return md;
       }
 
-      function renderTable(deck) {
-        let out = "";
-        const cats = Object.keys(deck);
-        if (cats.length === 0) return "";
-        for (let i = 0; i < cats.length; i += 3) {
-          let cols = cats.slice(i, i + 3);
-          while (cols.length < 3) cols.push("");
-          out += `| ${cols[0]} | ${cols[1]} | ${cols[2]} |\n`;
-          out += "|:--|:--|:--|\n";
-          let rows = Math.max(...cols.map(c => c ? deck[c].length : 0));
-          for (let r = 0; r < rows; r++) {
-            out += "|";
-            cols.forEach(c => {
-              out += ` ${c && deck[c][r] ? deck[c][r] : ""} |`;
-            });
-            out += "\n";
-          }
-          out += "\n";
+      function renderTable(deck){
+
+    let out = "";
+
+    const cats = Object.keys(deck);
+
+    if(cats.length === 0)
+        return "";
+
+    for(let i = 0; i < cats.length; i += 3){
+
+        let cols = cats.slice(i, i + 3);
+
+        out += "| " + cols.join(" | ") + " |\n";
+
+        out += "|" + cols.map(() => ":--").join("|") + "|\n";
+
+        let rows = Math.max(
+            ...cols.map(c => deck[c].length)
+        );
+
+        for(let r = 0; r < rows; r++){
+
+            let row = cols.map(c =>
+                deck[c][r] || ""
+            );
+
+            out += "| " + row.join(" | ") + " |\n";
+
         }
-        return out;
-      }
+
+        out += "\n";
+
+    }
+
+    return out;
+
+}
 
       function copyToClipboard() {
         const text = document.querySelector("#result pre").textContent;
