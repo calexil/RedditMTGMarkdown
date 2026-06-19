@@ -1,331 +1,334 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reddit MTG Deck Formatter</title>
     <style>
-  body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #1a1a1a;
-    color: #ddd;
-    margin: 0;
-    padding: 20px;
-  }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #1a1a1a;
+            color: #ddd;
+            margin: 0;
+            padding: 20px;
+          }
+        
+          .container {
+            max-width: 1200px;
+            margin: 0 auto;
+          }
+        
+          h1 {
+            text-align: center;
+            color: #4CAF50;
+          }
+        
+          input,
+          textarea,
+          button {
+            padding: 12px;
+            margin: 5px;
+            border-radius: 6px;
+            border: 1px solid #444;
+          }
+        
+          input[type="text"],
+          textarea {
+            background-color: #2a2a2a;
+            color: #ddd;
+            width: 100%;
+            box-sizing: border-box;
+          }
+        
+          /* Uniform Button Styling */
+          button, .donate-btn {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 14px;
+            padding: 12px 20px;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+          }
+        
+          button:hover,
+          .donate-btn:hover {
+            background-color: #45a049;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(76, 175, 80, 0.4);
+          }
+        
+          button:active,
+          .donate-btn:active {
+            transform: translateY(1px);
+          }
+        
+          /* Donate Button Specifics */
+          .donate-btn {
+            display: inline-block;
+            text-decoration: none;
+            margin: 10px 0;
+            box-shadow: 0 2px 8px rgba(76, 175, 80, 0.3);
+          }
+        
+          pre {
+            background-color: #2a2a2a;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            font-family: monospace;
+            line-height: 1.5;
+          }
+        
+          .output {
+            border: 1px solid #444;
+            padding: 25px;
+            background-color: #222;
+            border-radius: 10px;
+          }
+        
+          .instructions {
+            background: #2a2a2a;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 15px 0;
+          }
+    </style>
+</head>
 
-  .container {
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-
-  h1 {
-    text-align: center;
-    color: #4CAF50;
-  }
-
-  input,
-  textarea,
-  button {
-    padding: 12px;
-    margin: 5px;
-    border-radius: 6px;
-    border: 1px solid #444;
-  }
-
-  input[type="text"],
-  textarea {
-    background-color: #2a2a2a;
-    color: #ddd;
-    width: 100%;
-    box-sizing: border-box;
-  }
-
-  /* Uniform Button Styling */
-  button, .donate-btn {
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    cursor: pointer;
-    font-weight: bold;
-    font-size: 14px;              /* Consistent size */
-    padding: 12px 20px;
-    border-radius: 6px;
-    transition: all 0.2s ease;
-  }
-
-  button:hover,
-  .donate-btn:hover {
-    background-color: #45a049;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.4);
-  }
-
-  button:active,
-  .donate-btn:active {
-    transform: translateY(1px);
-  }
-
-  /* Donate Button Specifics */
-  .donate-btn {
-    display: inline-block;
-    text-decoration: none;
-    margin: 10px 0;
-    box-shadow: 0 2px 8px rgba(76, 175, 80, 0.3);
-  }
-
-  pre {
-    background-color: #2a2a2a;
-    padding: 20px;
-    border-radius: 8px;
-    overflow-x: auto;
-    white-space: pre-wrap;
-    font-family: monospace;
-    line-height: 1.5;
-  }
-
-  .output {
-    border: 1px solid #444;
-    padding: 25px;
-    background-color: #222;
-    border-radius: 10px;
-  }
-
-  .instructions {
-    background: #2a2a2a;
-    padding: 15px;
-    border-radius: 6px;
-    margin: 15px 0;
-  }
-</style>
-  </head>
-  <body>
+<body>
     <div class="container">
-      <h1>Reddit MTG Deck Formatter</h1>
-      <input type="text" id="urlInput" placeholder="https://tappedout.net/mtg-decks/delvernought-2026-1/" style="margin-bottom: 8px; width: 100%;">
-      <button onclick="fetchFromTappedOut()">Load from TappedOut Link</button>
-      <button onclick="clearAll()">Clear</button>
-      <textarea id="deckInput" rows="20" placeholder="Or paste exported text here..."></textarea>
-      <button onclick="processDecklist()" style="width: 100%; margin: 12px 0;">Generate Reddit Tables</button>
-      <div id="output" class="output" style="display: none;">
-        <h2>Reddit Markdown Tables</h2>
-        <div id="result"></div>
-        <button onclick="copyToClipboard()" style="margin-top: 15px;">Copy All to Clipboard</button>
-      </div>
-      <div id="status" style="text-align: center; margin: 15px; color: #aaa;"></div>
-      <div style="text-align: center; margin: 35px 0 15px;">
-  <a href="https://calexil.com/#donate" class="donate-btn">
+        <h1>Reddit MTG Deck Formatter</h1>
+        <input type="text" id="urlInput" placeholder="https://tappedout.net/mtg-decks/delvernought-2026-1/" style="margin-bottom: 8px; width: 100%;">
+        <button onclick="fetchFromTappedOut()">Load from TappedOut Link</button>
+        <button onclick="clearAll()">Clear</button>
+        <textarea id="deckInput" rows="20" placeholder="Or paste exported text here..."></textarea>
+        <button onclick="processDecklist()" style="width: 100%; margin: 12px 0;">Generate Reddit Tables</button>
+        <div id="output" class="output" style="display: none;">
+            <h2>Reddit Markdown Tables</h2>
+            <div id="result"></div>
+            <button onclick="copyToClipboard()" style="margin-top: 15px;">Copy All to Clipboard</button>
+        </div>
+        <div id="status" style="text-align: center; margin: 15px; color: #aaa;"></div>
+        <div style="text-align: center; margin: 35px 0 15px;">
+            <a href="https://calexil.com/#donate" class="donate-btn">
     ❤️ Like this tool? Consider leaving a tip!
   </a>
-</div>
+        </div>
     </div>
     <script>
-      const PROXY = 'deckproxy.php?url=';
-      async function fetchFromTappedOut() {
-        const url = document.getElementById('urlInput').value.trim();
-        const status = document.getElementById('status');
-        if (!url) {
-          status.textContent = "Enter a TappedOut URL";
-          return;
-        }
-        status.textContent = "Fetching deck...";
-        try {
-          const response = await fetch(PROXY + encodeURIComponent(url));
-          if (!response.ok) {
-            throw new Error("Proxy failed: " + response.status);
+        const PROXY = 'deckproxy.php?url=';
+          async function fetchFromTappedOut() {
+            const url = document.getElementById('urlInput').value.trim();
+            const status = document.getElementById('status');
+            if (!url) {
+              status.textContent = "Enter a TappedOut URL";
+              return;
+            }
+            status.textContent = "Fetching deck...";
+            try {
+              const response = await fetch(PROXY + encodeURIComponent(url));
+              if (!response.ok) {
+                throw new Error("Proxy failed: " + response.status);
+              }
+              const html = await response.text();
+              const deck = await extractTappedOutDeck(html);
+              document.getElementById('deckInput').value = deck.raw;
+              status.textContent = "✅ Deck loaded!";
+              processDecklist(deck.cards);
+            } catch (e) {
+              console.error(e);
+              status.textContent = "Failed loading deck.";
+            }
           }
-          const html = await response.text();
-          const deck = await extractTappedOutDeck(html);
-          document.getElementById('deckInput').value = deck.raw;
-          status.textContent = "✅ Deck loaded!";
-          processDecklist(deck.cards);
-        } catch (e) {
-          console.error(e);
-          status.textContent = "Failed loading deck.";
-        }
-      }
-      async function extractTappedOutDeck(html) {
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(html, 'text/html');
-        let exportFields = [...doc.querySelectorAll('textarea, input')].filter(el => el.value && el.value.includes("||"));
-        if (exportFields.length === 0) throw new Error("No deck export found");
-        // Pick the largest export block
-        let exportField = exportFields.sort(
-          (a, b) => b.value.length - a.value.length)[0];
-        console.log("Using export:", exportField.value.substring(0, 200));
-        let cards = [];
-        exportField.value.split("||").forEach(entry => {
-          entry = entry.trim();
-          let match = entry.match(/^(\d+)\s+(.+?)$/);
-          if (!match) return;
-          let qty = Number(match[1]);
-          let name = match[2].replace(/\s+\([A-Z0-9]+\)\s*\d+$/, "").trim();
-          cards.push({
-            qty,
-            name,
-            fullName: name,
-            side: false,
-            type: "Other"
-          });
-        });
-        // Add cards that exist in TappedOut board containers
-        doc.querySelectorAll('li.member[id^="boardContainer-"]').forEach(li => {
-          const qtyEl = li.querySelector('a.qty.board');
-          const nameEl = li.querySelector('[data-name]');
-          if (!qtyEl || !nameEl) return;
-          const qty = parseInt(qtyEl.textContent.replace(/\D/g, ''), 10);
-          const name = nameEl.dataset.name;
-          let board = li.querySelector("a.qty.board")?.dataset.board || "main";
-          if (board === "maybe") return;
-          console.log("BOARD FOUND:", qty, name, board);
-          let existing = cards.find(c => c.name.toLowerCase() === name.toLowerCase());
-          if (existing) {
-            existing.side = board === "side";
-            console.log("UPDATED:", existing.name, board);
-          } else {
-            cards.push({
-              qty,
-              name,
-              fullName: name,
-              side: board === "side",
-              type: "Other"
+          async function extractTappedOutDeck(html) {
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+            let exportFields = [...doc.querySelectorAll('textarea, input')].filter(el => el.value && el.value.includes("||"));
+            if (exportFields.length === 0) throw new Error("No deck export found");
+            // Pick the largest export block
+            let exportField = exportFields.sort(
+              (a, b) => b.value.length - a.value.length)[0];
+            console.log("Using export:", exportField.value.substring(0, 200));
+            let cards = [];
+            exportField.value.split("||").forEach(entry => {
+              entry = entry.trim();
+              let match = entry.match(/^(\d+)\s+(.+?)$/);
+              if (!match) return;
+              let qty = Number(match[1]);
+              let name = match[2].replace(/\s+\([A-Z0-9]+\)\s*\d+$/, "").trim();
+              cards.push({
+                qty,
+                name,
+                fullName: name,
+                side: false,
+                type: "Other"
+              });
             });
-          }
-        });
-        console.log("TOTAL AFTER BOARD SCRAPE:", cards.length);
-        // Fallback: scrape visible card rows from TappedOut
-        doc.querySelectorAll(".card_list tr, .decklist tr, .card").forEach(row => {
-          let text = row.innerText.trim();
-          let match = text.match(/^(\d+)\s+(.+?)$/);
-          if (!match) return;
-          let qty = Number(match[1]);
-          let name = match[2].replace(/\s+\([A-Z0-9]+\)\s*\d+$/, "").trim();
-          if (!cards.some(c => c.name === name)) {
-            cards.push({
-              qty,
-              name,
-              fullName: name,
-              side: false,
-              type: "Other"
+            // Add cards that exist in TappedOut board containers
+            doc.querySelectorAll('li.member[id^="boardContainer-"]').forEach(li => {
+              const qtyEl = li.querySelector('a.qty.board');
+              const nameEl = li.querySelector('[data-name]');
+              if (!qtyEl || !nameEl) return;
+              const qty = parseInt(qtyEl.textContent.replace(/\D/g, ''), 10);
+              const name = nameEl.dataset.name;
+              let board = li.querySelector("a.qty.board")?.dataset.board || "main";
+              if (board === "maybe") return;
+              console.log("BOARD FOUND:", qty, name, board);
+              let existing = cards.find(c => c.name.toLowerCase() === name.toLowerCase());
+              if (existing) {
+                existing.side = board === "side";
+                console.log("UPDATED:", existing.name, board);
+              } else {
+                cards.push({
+                  qty,
+                  name,
+                  fullName: name,
+                  side: board === "side",
+                  type: "Other"
+                });
+              }
             });
+            console.log("TOTAL AFTER BOARD SCRAPE:", cards.length);
+            // Fallback: scrape visible card rows from TappedOut
+            doc.querySelectorAll(".card_list tr, .decklist tr, .card").forEach(row => {
+              let text = row.innerText.trim();
+              let match = text.match(/^(\d+)\s+(.+?)$/);
+              if (!match) return;
+              let qty = Number(match[1]);
+              let name = match[2].replace(/\s+\([A-Z0-9]+\)\s*\d+$/, "").trim();
+              if (!cards.some(c => c.name === name)) {
+                cards.push({
+                  qty,
+                  name,
+                  fullName: name,
+                  side: false,
+                  type: "Other"
+                });
+              }
+            });
+            console.log("AFTER HTML SCRAPE:", cards.map(c => c.name));
+            console.log("FINAL CARD COUNT:", cards.length);
+            console.log(cards.map(c => c.name));
+            await classifyCards(cards);
+            return {
+              cards,
+              raw: cards.map(c => `${c.qty}x ${c.name}`).join("\n")
+            };
           }
-        });
-        console.log("AFTER HTML SCRAPE:", cards.map(c => c.name));
-        console.log("FINAL CARD COUNT:", cards.length);
-        console.log(cards.map(c => c.name));
-        await classifyCards(cards);
-        return {
-          cards,
-          raw: cards.map(c => `${c.qty}x ${c.name}`).join("\n")
-        };
-      }
-      async function classifyCards(cards) {
-        for (const card of cards) {
-          let clean = card.name.trim();
-          // guaranteed basics
-          if (
-            ["Island", "Mountain", "Forest", "Swamp", "Plains", "Wastes"].includes(clean)) {
-            card.type = "Land";
-            continue;
+          async function classifyCards(cards) {
+            for (const card of cards) {
+              let clean = card.name.trim();
+              // guaranteed basics
+              if (
+                ["Island", "Mountain", "Forest", "Swamp", "Plains", "Wastes"].includes(clean)) {
+                card.type = "Land";
+                continue;
+              }
+              try {
+                let r = await fetch("https://api.scryfall.com/cards/named?exact=" + encodeURIComponent(clean));
+                if (!r.ok) throw new Error();
+                let data = await r.json();
+                card.type = normalizeType(data.type_line);
+              } catch {
+                card.type = "Other";
+              }
+            }
           }
-          try {
-            let r = await fetch("https://api.scryfall.com/cards/named?exact=" + encodeURIComponent(clean));
-            if (!r.ok) throw new Error();
-            let data = await r.json();
-            card.type = normalizeType(data.type_line);
-          } catch {
-            card.type = "Other";
+    
+          function normalizeType(type) {
+            if (!type) return "Other";
+            if (type.includes("Land")) return "Land";
+            if (type.includes("Creature")) return "Creature";
+            if (type.includes("Instant")) return "Instant";
+            if (type.includes("Sorcery")) return "Sorcery";
+            if (type.includes("Artifact")) return "Artifact";
+            if (type.includes("Enchantment")) return "Enchantment";
+            if (type.includes("Planeswalker")) return "Planeswalker";
+            if (type.includes("Battle")) return "Battle";
+            return "Other";
           }
-        }
-      }
-
-      function normalizeType(type) {
-        if (!type) return "Other";
-        if (type.includes("Land")) return "Land";
-        if (type.includes("Creature")) return "Creature";
-        if (type.includes("Instant")) return "Instant";
-        if (type.includes("Sorcery")) return "Sorcery";
-        if (type.includes("Artifact")) return "Artifact";
-        if (type.includes("Enchantment")) return "Enchantment";
-        if (type.includes("Planeswalker")) return "Planeswalker";
-        if (type.includes("Battle")) return "Battle";
-        return "Other";
-      }
-      async function processDecklist(existing = null) {
-        let cards = existing;
-        if (!cards) {
-          alert("Use Load from TappedOut first");
-          return;
-        }
-        let main = {};
-        let side = {};
-        cards.forEach(c => {
-          const bucket = c.side ? side : main;
-          if (!bucket[c.type]) bucket[c.type] = [];
-          bucket[c.type].push(`${c.qty}x ${c.name}`);
-        });
-        const markdown = buildMarkdown(main, side);
-        document.getElementById('result').innerHTML = `
-						<pre>${markdown}</pre>`;
-        document.getElementById('output').style.display = "block";
-      }
-
-      function buildMarkdown(main, side) {
-        let md = "# Mainboard\n\n";
-        md += renderTable(main);
-        if (Object.keys(side).length) {
-          md += "\n# Sideboard\n\n";
-          md += renderTable(side);
-        }
-        return md;
-      }
-
-      function renderTable(deck){
-
-    let out = "";
-
-    const cats = Object.keys(deck);
-
-    if(cats.length === 0)
-        return "";
-
-    for(let i = 0; i < cats.length; i += 3){
-
-        let cols = cats.slice(i, i + 3);
-
-        out += "| " + cols.join(" | ") + " |\n";
-
-        out += "|" + cols.map(() => ":--").join("|") + "|\n";
-
-        let rows = Math.max(
-            ...cols.map(c => deck[c].length)
-        );
-
-        for(let r = 0; r < rows; r++){
-
-            let row = cols.map(c =>
-                deck[c][r] || ""
+          async function processDecklist(existing = null) {
+            let cards = existing;
+            if (!cards) {
+              alert("Use Load from TappedOut first");
+              return;
+            }
+            let main = {};
+            let side = {};
+            cards.forEach(c => {
+              const bucket = c.side ? side : main;
+              if (!bucket[c.type]) bucket[c.type] = [];
+              bucket[c.type].push(`${c.qty}x ${c.name}`);
+            });
+            const markdown = buildMarkdown(main, side);
+            document.getElementById('result').innerHTML = `
+    						<pre>${markdown}</pre>`;
+            document.getElementById('output').style.display = "block";
+          }
+    
+          function buildMarkdown(main, side) {
+            let md = "# Mainboard\n\n";
+            md += renderTable(main);
+            if (Object.keys(side).length) {
+              md += "\n# Sideboard\n\n";
+              md += renderTable(side);
+            }
+            return md;
+          }
+    
+          function renderTable(deck){
+    
+        let out = "";
+    
+        const cats = Object.keys(deck);
+    
+        if(cats.length === 0)
+            return "";
+    
+        for(let i = 0; i < cats.length; i += 3){
+    
+            let cols = cats.slice(i, i + 3);
+    
+            out += "| " + cols.join(" | ") + " |\n";
+    
+            out += "|" + cols.map(() => ":--").join("|") + "|\n";
+    
+            let rows = Math.max(
+                ...cols.map(c => deck[c].length)
             );
-
-            out += "| " + row.join(" | ") + " |\n";
-
+    
+            for(let r = 0; r < rows; r++){
+    
+                let row = cols.map(c =>
+                    deck[c][r] || ""
+                );
+    
+                out += "| " + row.join(" | ") + " |\n";
+    
+            }
+    
+            out += "\n";
+    
         }
-
-        out += "\n";
-
+    
+        return out;
+    
     }
-
-    return out;
-
-}
-
-      function copyToClipboard() {
-        const text = document.querySelector("#result pre").textContent;
-        navigator.clipboard.writeText(text);
-      }
-
-      function clearAll() {
-        location.reload();
-      }
+    
+          function copyToClipboard() {
+            const text = document.querySelector("#result pre").textContent;
+            navigator.clipboard.writeText(text);
+          }
+    
+          function clearAll() {
+            location.reload();
+          }
     </script>
-  </body>
+</body>
+
 </html>
