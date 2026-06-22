@@ -15,29 +15,28 @@ Into this:
 | Artifact | Instant | Creature |
 |:--|:--|:--|
 | 1x Aether Spellbomb | 4x Brainstorm | 4x Delver of Secrets |
-| 1x Grafdigger's Cage | 4x Daze | 3x Phyrexian Dreadnought |
-| 1x Lavaspur Boots | 4x Force of Will |  |
-| 1x Pithing Needle | 4x Stifle |  |
+| 1x Skateboard | 3x Daze | 4x Phyrexian Dreadnought |
+|  | 4x Force of Will |  |
+|  | 4x Stifle |  |
 
 | Enchantment | Land | Sorcery |
 |:--|:--|:--|
 | 3x Dress Down | 3x Flooded Strand | 4x Flow State |
 |  | 3x Polluted Delta | 4x Ponder |
-|  | 4x Urza's Saga | 2x Preordain |
+|  | 4x Urza's Saga | 4x Preordain |
 |  | 4x Wasteland |  |
 |  | 6x Island |  |
 
 
 # Sideboard
 
-| Creature | Enchantment | Instant |
+| Artifact | Enchantment | Instant |
 |:--|:--|:--|
-| 1x Blightsteel Colossus | 3x Leyline of the Void | 4x Mindbreak Trap |
-| 1x Emrakul, the Aeons Torn |  |  |
-| 1x Progenitus |  |  |
-| 1x Terror of the Peaks |  |  |
+| 1x Chalice of the Void | 1x Dress Down | 2x Echoing Truth |
+| 1x Grafdigger's Cage |  | 2x Spell Snare |
+| 1x Pithing Needle |  | 2x Steel Sabotage |
+| 1x Tormod's Crypt |  | 2x Swan Song |
 
-| Sorcery |
-|:--|
-| 4x Show and Tell |
-
+| Creature | Land |
+|:--|:--|
+| 1x Emrakul, the Aeons Torn | 1x Mystic Sanctuary |
