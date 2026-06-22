@@ -7,6 +7,11 @@ if (!$url) {
     exit('Missing URL');
 }
 
+// Force cache bust
+$url .= (strpos($url, '?') !== false ? '&' : '?')
+      . 'cb=' . time();
+
+$ch = curl_init($url);
 $ch = curl_init($url);
 
 curl_setopt_array($ch, [
