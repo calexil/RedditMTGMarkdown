@@ -6,7 +6,7 @@ Tool is hosted live at: [My Website Here](https://calexil.com/redditmtg/index.ht
 
 ## What does it do?
 
-It turns this: https://tappedout.net/mtg-decks/delvernought-2026-1/
+**Short Version:** It turns this: https://tappedout.net/mtg-decks/delvernought-2026-1/
 
 Into this:
 
@@ -40,3 +40,14 @@ Into this:
 | Creature | Land |
 |:--|:--|
 | 1x Emrakul, the Aeons Torn | 1x Mystic Sanctuary |
+
+**Long Version:**
+
+* Pulls a TappedOut deck via proxy
+* Extracts the export block
+* Recovers cards missing from the export (basic lands, etc.)
+* Detects mainboard vs sideboard from the DOM
+* Ignores maybeboard
+* Classifies cards through Scryfall
+* Generates Reddit markdown tables
+* Produces valid table syntax
