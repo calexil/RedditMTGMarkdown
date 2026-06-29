@@ -334,21 +334,73 @@
             }
             
             const output = document.getElementById("consoleOutput");
-
 const oldLog = console.log;
 
-console.log = function(...args) {
+const logQueue = [];
+let processing = false;
 
+function processQueue() {
+    if (processing) return;
+    processing = true;
+
+    const step = () => {
+        if (logQueue.length === 0) {
+            processing = false;
+            return;
+        }
+
+        const line = logQueue.shift();
+
+        output.textContent += line + "\n";
+
+        requestAnimationFrame(() => {
+            output.scrollTop = output.scrollHeight;
+        });
+
+        setTimeout(step, 100); // 👈 SPEED CONTROL HERE
+    };
+
+    step();
+}
+
+console.log = function (...args) {
     oldLog.apply(console, args);
 
-    output.textContent += args.join(" ") + "\n";
+    const line = args.map(a =>
+        typeof a === "object" ? JSON.stringify(a) : a
+    ).join(" ");
 
-    output.scrollTop = output.scrollHeight;
+    logQueue.push(line);
+    processQueue();
 };
-            
-            function clearAll() {
-            	location.reload();
-            }
         </script>
+        <script>
+const consoleBox = document.getElementById("consoleBox");
+
+let fadeTimer = null;
+let holdTimer = null;
+
+function showConsoleMessage(message, duration = 1200) {
+    if (!consoleBox) return;
+
+    clearTimeout(fadeTimer);
+    clearTimeout(holdTimer);
+
+    // start fade out
+    consoleBox.style.opacity = 0;
+
+    fadeTimer = setTimeout(() => {
+        document.getElementById("consoleOutput").textContent = message;
+        consoleBox.style.opacity = 1;
+
+        // optional: auto-clear after duration
+        holdTimer = setTimeout(() => {
+            consoleBox.style.opacity = 0;
+        }, duration);
+
+    }, 250); // slightly snappier than 350ms
+}
+</script>
+</body>
     </body>
 </html>
