@@ -14,6 +14,10 @@
             <button onclick="fetchFromTappedOut()">Load from TappedOut Link</button>
             <button onclick="clearAll()">Clear</button>
             <textarea id="deckInput" rows="20" placeholder="Or paste exported text here..."></textarea>
+            <div id="consoleBox">
+    <div class="console-title">Console Log</div>
+    <pre id="consoleOutput"></pre>
+</div>
             <button onclick="processDecklist()" style="width: 100%; margin: 12px 0;">Generate Reddit Tables</button>
             <div id="output" class="output" style="display: none;">
                 <h2>Reddit Markdown Tables</h2>
@@ -328,6 +332,19 @@
             	const text = document.querySelector("#result pre").textContent;
             	navigator.clipboard.writeText(text);
             }
+            
+            const output = document.getElementById("consoleOutput");
+
+const oldLog = console.log;
+
+console.log = function(...args) {
+
+    oldLog.apply(console, args);
+
+    output.textContent += args.join(" ") + "\n";
+
+    output.scrollTop = output.scrollHeight;
+};
             
             function clearAll() {
             	location.reload();
